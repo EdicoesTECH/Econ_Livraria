@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Assistente do Ecônomo - Livraria Shalom</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo-circle">LS</div>
+      <div class="header-text">
+        <h1>Assistente do Ecônomo</h1>
+        <p>Suporte para a gestão das Livrarias Shalom, alinhado ao PEV e às políticas da Comunidade.</p>
+      </div>
+    </header>
+
+    <main class="chat-container">
+      <div id="chat" class="chat-messages">
+        <!-- Mensagens são inseridas via JS -->
+      </div>
+
+      <div class="quick-actions">
+        <button class="quick-btn" data-template="Faça um diagnóstico rápido da realidade da minha livraria. Vou descrever os principais pontos e quero que você me diga perigos, oportunidades e próximos passos.">
+          Diagnóstico rápido
+        </button>
+        <button class="quick-btn" data-template="Sugira ações práticas para aumentar o faturamento da livraria nos próximos 3 meses, respeitando o PEV e as políticas comerciais.">
+          Aumentar faturamento
+        </button>
+        <button class="quick-btn" data-template="Quais pontos devo acompanhar mensalmente como ecônomo para garantir que a livraria está saudável e alinhada ao Plano Evangelizador?">
+          Pontos de acompanhamento
+        </button>
+      </div>
+
+      <form id="chat-form" class="chat-form">
+        <textarea
+          id="message-input"
+          class="chat-input"
+          rows="2"
+          placeholder="Descreva a realidade da sua livraria ou faça uma pergunta (faturamento, campanhas, PEV, estoques, etc.)..."
+          required
+        ></textarea>
+        <button type="submit" class="send-btn">Enviar</button>
+      </form>
+    </main>
+
+    <footer class="app-footer">
+      <span>Assistente do Ecônomo · Livraria Shalom</span>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
