@@ -143,14 +143,25 @@ async function sendToBackend(message) {
       throw new Error("Erro na requisição ao backend");
     }
 
-    const data = await response.json();
+  const data = await response.json();
 
-    // Ajuste aqui se o n8n devolver em outro campo:
-    // ex.: { "reply": "texto..." } ou { "data": { "reply": "..." } }
-    const reply = data.reply || data.answer || JSON.stringify(data, null, 2);
+// tenta pegar a mensagem em vários campos possíveis
+let reply =
+  data.reply ||
+  data.answer ||
+  data.output ||                // <--- campo que o n8n está usando
+  (data.data && (data.data.reply || data.data.output));
 
-    removeTypingIndicator();
-    addBotMessage(reply);
+if (!reply) {
+  // fallback: mostra o JSON bruto só pra depurar
+  reply = JSON.stringify(data, null, 2);
+}
+
+removeTypingIndicator();
+addBotMessage(reply);
+
+
+    
   } catch (error) {
     console.error(error);
     removeTypingIndicator();
