@@ -120,26 +120,32 @@ body {
 
 .chat-messages {
   flex: 1;
-  overflow-y: auto;
+  /* altura fixa da área de conversa */
+  max-height: 360px;          /* ajuste se quiser maior/menor */
+  min-height: 220px;
+  
+  overflow-y: auto;           /* rolagem somente dentro da caixa */
   padding: 4px 2px 6px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 60vh;
 }
 
-/* Scrollbar */
-
+/* Scrollbar visível dentro da caixa do chat */
 .chat-messages::-webkit-scrollbar {
   width: 8px;
 }
+
 .chat-messages::-webkit-scrollbar-track {
-  background: transparent;
-}
-.chat-messages::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.25);
   border-radius: 4px;
 }
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 4px;
+}
+
 
 /* MESSAGES */
 
