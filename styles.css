@@ -68,13 +68,14 @@ body {
 }
 
 .logo-img {
-  height: 42px;
+  height: 36px;
   width: auto;
   border-radius: 12px;
   background: rgba(0, 0, 0, 0.25);
-  padding: 4px 8px;
-  box-shadow: 0 0 22px rgba(0, 0, 0, 0.6);
+  padding: 3px 6px;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.6);
 }
+
 
 .header-text h1 {
   margin: 0;
@@ -354,8 +355,8 @@ body {
   }
 
   .logo-img {
-    height: 34px;
-    padding: 3px 6px;
+    height: 30px;   /* um pouco menor só no mobile */
+    padding: 2px 5px;
   }
 
   .header-text h1 {
@@ -365,6 +366,8 @@ body {
   .header-text p {
     display: none;
   }
+}
+
 
   .chat-container {
     padding: 8px 10px 10px;
