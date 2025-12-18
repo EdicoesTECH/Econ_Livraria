@@ -19,21 +19,34 @@ if (!sessionId) {
 window.addEventListener("DOMContentLoaded", () => {
   addBotMessage(
     "Olá! Sou o assistente do ecônomo da Livraria Shalom. " +
-      "Descreva a realidade da sua livraria ou faça suas perguntas sobre metas, campanhas, PEV ou gestão " +
+      "Descreva a realidade da sua livraria ou faça suas perguntas sobre metas, campanhas, PEV ou gestão, " +
       "e eu te ajudo com análise e próximos passos."
   );
 });
 
-// Envio de formulário
-formEl.addEventListener("submit", async (event) => {
+// --- ENVIO PELO FORM (click no botão ou Enter) ---
+
+formEl.addEventListener("submit", (event) => {
   event.preventDefault();
+  handleSend();
+});
+
+// Enviar com Enter e quebrar linha com Shift+Enter
+inputEl.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault(); // impede quebra de linha
+    handleSend();           // envia a mensagem
+  }
+});
+
+async function handleSend() {
   const text = inputEl.value.trim();
   if (!text) return;
 
   addUserMessage(text);
   inputEl.value = "";
   await sendToBackend(text);
-});
+}
 
 // Botões rápidos
 quickButtons.forEach((btn) => {
@@ -143,25 +156,22 @@ async function sendToBackend(message) {
       throw new Error("Erro na requisição ao backend");
     }
 
-  const data = await response.json();
+    const data = await response.json();
 
-// tenta pegar a mensagem em vários campos possíveis
-let reply =
-  data.reply ||
-  data.answer ||
-  data.output ||                // <--- campo que o n8n está usando
-  (data.data && (data.data.reply || data.data.output));
+    // Tenta pegar a mensagem em vários campos possíveis
+    let reply =
+      data.reply ||
+      data.answer ||
+      data.output || // campo que seu fluxo está usando
+      (data.data && (data.data.reply || data.data.output));
 
-if (!reply) {
-  // fallback: mostra o JSON bruto só pra depurar
-  reply = JSON.stringify(data, null, 2);
-}
+    if (!reply) {
+      // fallback: mostra JSON bruto (só para depuração)
+      reply = JSON.stringify(data, null, 2);
+    }
 
-removeTypingIndicator();
-addBotMessage(reply);
-
-
-    
+    removeTypingIndicator();
+    addBotMessage(reply);
   } catch (error) {
     console.error(error);
     removeTypingIndicator();
